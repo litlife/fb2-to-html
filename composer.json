@@ -1,6 +1,7 @@
 {
   "name": "litlife/fb2-to-html",
   "description": "Fb2 to html module",
+  "version": "0.0.2",
   "authors": [
     {
       "name": "Litlife",
