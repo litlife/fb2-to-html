@@ -506,4 +506,21 @@ EOT;
 
 		$this->assertEquals('<p>&amp; &gt; &lt;</p>', $this->toHtml($xml));
 	}
+
+    public function testImageTag2()
+    {
+        $xml = <<<EOT
+<coverpage>
+  <image xmlns:NS1="http://www.w3.org/1999/xlink" NS1:href="#0f79e25c-20f0-4105-8f8c-11612f7d4875.jpg" /> 
+</coverpage>
+EOT;
+
+        $html = <<<EOT
+<coverpage>
+  <img src="#0f79e25c-20f0-4105-8f8c-11612f7d4875.jpg"/> 
+</coverpage>
+EOT;
+
+        $this->assertEquals($html, $this->toHtml($xml));
+    }
 }

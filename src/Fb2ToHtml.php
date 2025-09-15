@@ -178,6 +178,7 @@ class Fb2ToHtml
 		if ($node->nodeType == XML_TEXT_NODE) {
             return $this->dom->createTextNode($node->nodeValue);
 		} elseif ($node->nodeType == XML_ELEMENT_NODE) {
+
 			if ($rule = $this->getRule($node->nodeName)) {
 
 				if (isset($rule['to'])) {
@@ -213,17 +214,18 @@ class Fb2ToHtml
 
 			if ($node->childNodes->length > 0) {
 				foreach ($node->childNodes as $childNode) {
-					//echo $childNode->nodeType.'<br />';
 					if (!is_null($child = $this->convertNode($childNode))) {
 						$htmlElement->appendChild($child);
 					}
 				}
 			} else {
-				if (!in_array($htmlElement->nodeName, [
-				    'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img',
-					'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'])) {
-					$htmlElement->appendChild($this->dom->createTextNode(""));
-				}
+                if (isset($htmlElement)) {
+                    if (!in_array($htmlElement->nodeName, [
+                        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img',
+                        'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'])) {
+                        $htmlElement->appendChild($this->dom->createTextNode(""));
+                    }
+                }
 			}
 
 			return $htmlElement;
